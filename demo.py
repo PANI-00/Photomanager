@@ -16,7 +16,7 @@ image_input = preprocess(image).unsqueeze(0).to(device)
 text_labels = ["a photo of a cat", "a photo of a dog", "a photo of a bird", "a photo of a car", "a photo of a house"]
 text_inputs = clip.tokenize(text_labels).to(device)
 
-#计算相似度
+#相似度计算
 with torch.no_grad():
     image_features = model.encode_image(image_input)
     text_features = model.encode_text(text_inputs)
