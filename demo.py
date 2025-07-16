@@ -21,7 +21,7 @@ with torch.no_grad():
     image_features = model.encode_image(image_input)
     text_features = model.encode_text(text_inputs)
 
-#归一特征向量
+# 归一特征向量
     image_features /= image_features.norm(dim=-1, keepdim=True)
     text_features /= text_features.norm(dim=-1, keepdim=True)
 
