@@ -17,6 +17,7 @@ image_urls = [
     'https://globalimg.sucai999.com/preimg/E625C8/700/E625C8/148/546aeb60b2446bf0c4aa247454d32d50.jpg?x-oss-process=image/resize,w_320/format,webp',
     'https://globalimg.sucai999.com/preimg/E625C8/700/E625C8/111/f436fc2891516b652564367cd2d859a7.jpg?x-oss-process=image/resize,w_320/format,webp',
     'https://globalimg.sucai999.com/preimg/123D82/700/123D82/198/d849caf1496cf78e70e08a2a9265e762.jpg?x-oss-process=image/resize,w_320/format,webp'
+
 ]
 
 # 下载并预处理所有图像
