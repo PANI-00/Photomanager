@@ -14,12 +14,18 @@
 
 ### 方式一：一键启动（推荐）
 
-```bash
-# 先安装依赖（仅首次）
-pip install -r requirements.txt
+双击项目根目录的 **`CLIP检索系统.exe`**，自动完成所有操作：
+
+```
+双击 .exe
+  → 检查 Python 依赖（torch, CLIP, transformers...）
+  → 缺失则自动 pip install（首次 5~15 分钟）
+  → 启动 FastAPI 服务
+  → 打开浏览器
+  → 控制台窗口保持运行（关闭即停止服务）
 ```
 
-然后双击项目根目录的 **`CLIP检索系统.exe`**，自动启动服务并打开浏览器。
+> ⚠️ 要求：系统需已安装 Python 3.8+，且 `pip` 可用。
 
 ### 方式二：命令行启动
 
