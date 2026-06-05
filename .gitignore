@@ -3,6 +3,11 @@ __pycache__/
 *.pyc
 .venv/
 
+# 构建产物
+dist/
+build/
+*.spec
+
 # 项目数据
 data/images/*
 !data/images/.gitkeep

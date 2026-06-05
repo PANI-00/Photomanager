@@ -12,6 +12,17 @@
 
 ## 快速开始
 
+### 方式一：一键启动（推荐）
+
+```bash
+# 先安装依赖（仅首次）
+pip install -r requirements.txt
+```
+
+然后双击项目根目录的 **`CLIP检索系统.exe`**，自动启动服务并打开浏览器。
+
+### 方式二：命令行启动
+
 ```bash
 # 安装依赖
 pip install -r requirements.txt
@@ -23,7 +34,7 @@ python main.py
 # http://127.0.0.1:8000
 ```
 
-首次启动会自动下载 CLIP 和 BLIP 模型。图片导入后特征和描述会被缓存，搜索毫秒级响应。
+首次启动会自动下载 CLIP 和 BLIP 模型（约 2GB）。图片导入后特征和描述会被缓存，搜索毫秒级响应。
 
 ## 技术栈
 
@@ -51,6 +62,7 @@ python main.py
 │   ├── images/          # 图片存储
 │   └── metadata.json    # 元数据
 ├── requirements.txt
+├── CLIP检索系统.exe      # 一键启动器（双击运行）
 └── README.md
 ```
 
