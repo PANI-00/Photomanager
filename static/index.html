@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLIP 跨模态检索系统</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <h1>🔍 CLIP 跨模态检索系统</h1>
+    </div>
+    <div class="header-right">
+        <span id="stats-display">加载中...</span>
+    </div>
+</header>
+
+<main>
+    <!-- 工具栏 -->
+    <div class="toolbar">
+        <button onclick="document.getElementById('file-input').click()">📤 上传图片</button>
+        <input type="file" id="file-input" multiple accept="image/*" style="display:none">
+        <button onclick="showUrlImport()">🔗 从 URL 导入</button>
+        <button onclick="refreshAll()">🔄 刷新</button>
+    </div>
+
+    <!-- URL 导入弹窗 -->
+    <div id="url-modal" class="modal" style="display:none">
+        <div class="modal-content">
+            <span class="close" onclick="closeUrlImport()">&times;</span>
+            <h3>从 URL 导入图片</h3>
+            <textarea id="url-input" rows="4" placeholder="每行一个图片链接&#10;https://example.com/image1.jpg&#10;https://example.com/image2.png"></textarea>
+            <button onclick="importUrls()">导入</button>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="loading" style="display:none">
+        <div class="spinner"></div>
+        <span id="loading-text">处理中...</span>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="content">
+        <!-- 左侧分类 -->
+        <aside class="sidebar">
+            <h3>📁 分类</h3>
+            <ul id="category-list">
+                <li class="category-item active" data-category="" onclick="filterByCategory(this, '')">
+                    📋 全部
+                </li>
+            </ul>
+        </aside>
+
+        <!-- 右侧图片展示 -->
+        <section class="gallery-section">
+            <!-- 搜索栏 -->
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="输入自然语言搜索图片..." onkeydown="if(event.key==='Enter') searchImages()">
+                <button onclick="searchImages()">🔎 搜索</button>
+                <button id="clear-search" class="btn-clear" style="display:none" onclick="clearSearch()">✕ 清除</button>
+            </div>
+
+            <div id="gallery" class="gallery">
+                <div class="empty-state">暂无图片，请先导入。</div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

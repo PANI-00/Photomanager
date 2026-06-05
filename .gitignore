@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# 项目数据
+data/images/*
+!data/images/.gitkeep
+data/metadata.json
+
+# IDE
+.idea/
