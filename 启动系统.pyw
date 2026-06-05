@@ -1,4 +1,4 @@
-"""CLIP 检索系统一键启动器
+"""Photomanager 一键启动器
 双击运行：自动安装依赖 → 启动服务 → 打开浏览器
 """
 import importlib
@@ -39,7 +39,7 @@ def check_dependencies() -> list[str]:
 def install_dependencies():
     """安装 requirements.txt 中的所有依赖"""
     print("=" * 55)
-    print("  CLIP 检索系统 — 首次运行准备")
+    print("  Photomanager — 首次运行准备")
     print("=" * 55)
     print("\n📦 检测到依赖未安装，正在自动安装...")
     print("   首次安装可能需要 5~15 分钟，请耐心等待\n")

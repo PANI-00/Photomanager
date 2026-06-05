@@ -1,6 +1,6 @@
-# CLIP 零样本图像与语义跨模态检索系统
+# Photomanager
 
-基于 OpenAI CLIP + BLIP 的跨模态检索 Web 应用。
+基于 OpenAI CLIP + BLIP 的图片管理与跨模态检索系统。
 
 ## 功能
 
@@ -9,12 +9,13 @@
 - 📝 **生成描述** — BLIP 自动为每张图片生成自然语言描述
 - 🔍 **语义搜索** — 输入自然语言，精准匹配图片
 - 📁 **分类管理** — 按大类浏览和筛选图片
+- 📂 **自定义存储路径** — 通过环境变量 `PHOTOMANAGER_DATA_PATH` 设置图片存储位置
 
 ## 快速开始
 
 ### 方式一：一键启动（推荐）
 
-双击项目根目录的 **`CLIP检索系统.exe`**，自动完成所有操作：
+双击项目根目录的 **`Photomanager.exe`**，自动完成所有操作：
 
 ```
 双击 .exe
@@ -42,33 +43,53 @@ python main.py
 
 首次启动会自动下载 CLIP 和 BLIP 模型（约 2GB）。图片导入后特征和描述会被缓存，搜索毫秒级响应。
 
+## 自定义存储路径
+
+设置环境变量指定图片和数据的存储位置：
+
+```bash
+# Windows (CMD)
+set PHOTOMANAGER_DATA_PATH=D:\MyPhotos
+python main.py
+
+# Windows (PowerShell)
+$env:PHOTOMANAGER_DATA_PATH="D:\MyPhotos"
+python main.py
+
+# Linux/Mac
+export PHOTOMANAGER_DATA_PATH=/home/user/photos
+python main.py
+```
+
+不设置则默认存储在项目下的 `data/` 目录。
+
 ## 技术栈
 
 - **后端**: FastAPI + Uvicorn
 - **视觉模型**: CLIP ViT-B/32（特征提取）、BLIP-base（图像描述）
 - **前端**: 原生 HTML + CSS + JavaScript
-- **存储**: 本地文件系统
+- **存储**: 本地文件系统（路径可自定义）
 
 ## 项目结构
 
 ```
-├── main.py              # FastAPI 入口 + API 路由
-├── config.py            # 配置（阈值/模型名/预设类别）
+├── main.py                # FastAPI 入口 + API 路由
+├── config.py              # 配置（阈值/模型名/预设类别/路径）
 ├── models/
-│   ├── clip_service.py  # CLIP 特征提取
-│   └── caption_service.py  # BLIP 图像描述
+│   ├── clip_service.py    # CLIP 特征提取
+│   └── caption_service.py # BLIP 图像描述
 ├── services/
-│   ├── classifier.py    # 分类引擎
-│   └── search.py        # 检索服务
+│   ├── classifier.py      # 分类引擎
+│   └── search.py          # 检索服务
 ├── static/
-│   ├── index.html       # 前端页面
-│   ├── style.css        # 样式
-│   └── app.js           # 交互逻辑
-├── data/
-│   ├── images/          # 图片存储
-│   └── metadata.json    # 元数据
+│   ├── index.html         # 前端页面
+│   ├── style.css          # 样式
+│   └── app.js             # 交互逻辑
+├── data/                  # 默认数据目录（可自定义）
+│   ├── images/
+│   └── metadata.json
 ├── requirements.txt
-├── CLIP检索系统.exe      # 一键启动器（双击运行）
+├── Photomanager.exe       # 一键启动器（双击运行）
 └── README.md
 ```
 

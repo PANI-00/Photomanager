@@ -20,7 +20,7 @@ from models.caption_service import CaptionService
 from services.classifier import classify_image
 from services.search import search_images
 
-app = FastAPI(title="CLIP 跨模态检索系统")
+app = FastAPI(title="Photomanager")
 
 clip_service = CLIPService()
 caption_service = CaptionService()
@@ -259,5 +259,5 @@ app.mount("/", StaticFiles(directory="static", html=True), name="static")
 if __name__ == "__main__":
     import uvicorn
     from config import HOST, PORT
-    print(f"启动服务: http://{HOST}:{PORT}")
+    print(f"Photomanager 启动: http://{HOST}:{PORT}")
     uvicorn.run(app, host=HOST, port=PORT)
