@@ -1,18 +1,39 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
 .venv/
 
 # 构建产物
 dist/
 build/
 *.spec
+
+# 日志
+*.log
+entry.log
 server.log
 
-# 项目数据
+# 项目数据（用户私有，不提交）
+data/metadata.json
+data/settings.json
+data/categories.json
 data/images/*
 !data/images/.gitkeep
-data/metadata.json
 
 # IDE
 .idea/
+*.iml
+.vscode/
+
+# 系统文件
+Desktop.ini
+Thumbs.db
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# 模型缓存（用户本地下载）
+.cache/huggingface/

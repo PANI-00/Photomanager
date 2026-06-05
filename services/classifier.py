@@ -1,46 +1,33 @@
-"""分类引擎：混合模式——预设大类 + 自动创建新类别"""
+"""分类引擎：预设大类 + 用户自定义类别
+所有图片归入最匹配的类别（预设 + 自定义），不自动创建新类别。
+"""
 
 import torch
-from config import (
-    DEFAULT_CATEGORIES,
-    CLASSIFICATION_THRESHOLD_HIGH,
-    CLASSIFICATION_THRESHOLD_LOW,
-)
+from config import DEFAULT_CATEGORIES
 
 
 def classify_image(
     image_feat: torch.Tensor,
     clip_service,
-    existing_categories: list[str] | None = None,
-) -> tuple[str, float, str]:
+    extra_categories: list[str] | None = None,
+) -> tuple[str, float]:
     """
     对图片特征进行分类。
 
-    返回: (大类名称, 相似度分数, 匹配类型)
-    匹配类型: "exact" / "边缘" / "新类别"
+    参数:
+        extra_categories: 用户自定义的额外类别列表
+    返回: (类别名称, 相似度分数)
     """
-    # 合并预设大类 + 已有自动创建的类别
     all_categories = list(DEFAULT_CATEGORIES)
-    if existing_categories:
-        for cat in existing_categories:
-            if cat not in all_categories:
+    if extra_categories:
+        for cat in extra_categories:
+            if cat and cat not in all_categories:
                 all_categories.append(cat)
 
-    # 计算图片与各类别名称的 CLIP 相似度
-    text_features = clip_service.encode_text(all_categories)
+    text_features = clip_service.encode_text(all_categories)  # (N, 512)
     scores = image_feat @ text_features.T  # (1, N)
 
     max_score, max_idx = scores[0].max(dim=-1)
     max_score = max_score.item()
 
-    category = all_categories[max_idx]
-
-    if max_score >= CLASSIFICATION_THRESHOLD_HIGH:
-        match_type = "exact"
-    elif max_score >= CLASSIFICATION_THRESHOLD_LOW:
-        match_type = "边缘"
-    else:
-        category = f"{category}_自动类别"
-        match_type = "新类别"
-
-    return category, max_score, match_type
+    return all_categories[max_idx], max_score

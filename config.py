@@ -13,13 +13,15 @@ else:
 
 IMAGES_DIR = DATA_DIR / "images"
 METADATA_PATH = DATA_DIR / "metadata.json"
+CATEGORIES_PATH = DATA_DIR / "categories.json"
+SETTINGS_PATH = DATA_DIR / "settings.json"
 
 # CLIP 模型
 CLIP_MODEL_NAME = "ViT-B/32"
-DEVICE = "cuda" if __import__("torch").cuda.is_available() else "cpu"
 
-# BLIP 模型
-BLIP_MODEL_NAME = "Salesforce/blip-image-captioning-base"
+# ⚠️ DEVICE 延迟初始化 — 不在此处导入 torch（避免 DLL 初始化问题）
+# 首次访问 config.DEVICE 时（如 from config import DEVICE）才实际导入 torch
+_DEVICE: str | None = None
 
 # 分类阈值
 CLASSIFICATION_THRESHOLD_HIGH = 0.30
@@ -42,3 +44,14 @@ PORT = 8000
 
 os.makedirs(IMAGES_DIR, exist_ok=True)
 os.makedirs(DATA_DIR, exist_ok=True)
+
+
+def __getattr__(name: str):
+    """模块级 __getattr__（PEP 562）—— 延迟初始化 DEVICE，避免模块加载时导入 torch"""
+    global _DEVICE
+    if name == "DEVICE":
+        if _DEVICE is None:
+            import torch
+            _DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+        return _DEVICE
+    raise AttributeError(f"module 'config' has no attribute {name!r}")
